@@ -1,0 +1,81 @@
+{
+  "name": "roweruus",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/roweruus/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/roweruus",
+        "index": "apps/roweruus/src/index.html",
+        "baseHref": "/",
+        "main": "apps/roweruus/src/main.tsx",
+        "polyfills": "apps/roweruus/src/polyfills.ts",
+        "tsConfig": "apps/roweruus/tsconfig.app.json",
+        "assets": ["apps/roweruus/src/favicon.ico", "apps/roweruus/src/assets"],
+        "styles": [],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/roweruus/src/environments/environment.ts",
+              "with": "apps/roweruus/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "roweruus:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "roweruus:build:development"
+        },
+        "production": {
+          "buildTarget": "roweruus:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/roweruus/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/roweruus"],
+      "options": {
+        "jestConfig": "apps/roweruus/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
